@@ -1,0 +1,11 @@
+{
+  "name"         : "node-angular-mongodb",
+  "version"      : "0.0.0",
+  "description"  : "Simple a application.",
+  "main"         : "server.js",
+  "license"       : "MIT",
+  "author"       : "MG",
+  "dependencies" : {
+    "express": "~3.4.4"
+    }
+  }
