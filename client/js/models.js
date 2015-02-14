@@ -21,7 +21,7 @@ var Contact = function(){
         "gender": ""
     };
     _this.avatar = "";
-    _this.presence = "";
+    _this.presence = "offline";
   };
 
 angular.module('comcenterModels',[]).value('Contact',Contact);
