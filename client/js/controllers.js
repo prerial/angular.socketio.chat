@@ -1,6 +1,53 @@
 angular.module('comcenterControllers', [])
 
+.controller('chatController', ['$scope',
+  function ($scope) {
+    $scope.onKeyUp = function ($event) {
+        if($event.keyCode === 13){
 
+            if(App.chat.conversations.active !== null){
+                var presence = angular.element('#chat_toolbar').scope().getPresence();
+                if(presence !== 'online'){
+                    angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
+//                    alert('Selected Contact is not Online');
+                    return;
+                }
+            }else{
+                angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Please select Contact'});
+                //alert('Please select Contact');
+                return;
+            }
+            App.chat.conversations.Websocket.send({'event': 'chatMessage', 'user': Prerial.Config.User, 'message':$('#sendMessage').val()});
+            var liItem = $('<li style="display:block;" class="bubble"></li>').append('Me:&nbsp;' + $('#sendMessage').val());
+            $('#chat_display_holder ul').append(liItem);
+            $('#sendMessage').val('').blur();
+        }
+    };
+}])
+
+.controller('videoController', ['$scope',
+  function ($scope) {
+    $scope.startVideoCall = function(){
+        alert('Video coming soon');
+    };
+    $scope.$watch('sharedObj.type', function(){
+        if($scope.sharedObj.type === 'video'){
+            $scope.startVideoCall();
+        }
+    });
+}])
+
+.controller('phoneController', ['$scope',
+  function ($scope) {
+    $scope.startAudioCall = function(){
+        alert('Audio coming soon');
+    };
+    $scope.$watch('sharedObj.type', function(){
+        if($scope.sharedObj.type === 'audio'){
+            $scope.startAudioCall();
+        }
+    });
+}])
 
 .controller('UserContactController', function($scope, $controller, $window, $location, $timeout, events){
 
@@ -47,6 +94,38 @@ angular.module('comcenterControllers', [])
 */
 })
 
+.controller('ChatToolbarController', ['$scope','$timeout', '$controller', 'events',
+    function ($scope, $timeout, $controller, events) {
+
+        $controller('BaseCtrl', {$scope: $scope});
+
+        $scope.contacts = [];
+        $scope.getPresence = function() {
+            return $scope.contact.presence;
+        };
+        var setcontactpresence = function(data){
+            $scope.contact.presence = data.presence;
+        };
+        var setcontactslist = function(data){
+            $scope.contacts = data;
+        };
+        var setcontactfromslist = function(args){
+            var argcontact = args.data;
+            var presence = argcontact.presence;
+            argcontact.presence = 'offline';
+            $scope.contact = argcontact;
+            $scope.mainImageUrl = argcontact.avatar;
+    //        App.chat.conversations.active = argcontact.profile.email;
+            $timeout(function(){
+                argcontact.presence = presence;
+                $scope.contact = argcontact;
+            },500)
+        };
+        $scope.subscribe(events.message._SET_CONTACT_PRESENCE_, setcontactpresence);
+        $scope.subscribe(events.message._SET_CONTACT_FROM_LIST_, setcontactfromslist);
+        $scope.subscribe(events.message._GET_CONTACTS_COMPLETE_, setcontactslist);
+}])
+
 .controller('ContactListController', function($scope, $http, $controller, $location, $timeout, events, contactlist){
 
     $controller('BaseCtrl', {$scope: $scope});
@@ -73,7 +152,8 @@ angular.module('comcenterControllers', [])
     $scope.setContact = function(cont, event) {
         $(".contact-list").removeClass('hilited');
         $(event.target)[0].tagName === 'li'? $(event.target).addClass('hilited') : $(event.target).closest('li').addClass('hilited');
-        $scope.$emit('handleEmit', {event: 'chatToolbarContact', data: cont});
+        $scope.publish(events.message._SET_CONTACT_FROM_LIST_, [{data: cont}]);
+//        $scope.$emit('handleEmit', {event: 'chatToolbarContact', data: cont});
     };
     $scope.$emit('handleEmit', {event: 'getLoginUser', data: ''});
     $scope.subscribe(events.message._GET_CONTACTS_COMPLETE_, setcontactslist);
@@ -92,6 +172,16 @@ angular.module('comcenterControllers', [])
             $scope.sharedObj.type = 'audio';
         };
 })
+
+.controller("AppController", ['$scope', function($scope) {
+    $scope.alertIsHidden = false;
+    $scope.showAlert = function() {
+        $(".alert-box-message").html(arguments[0].message)
+        $(".alert-box-title").html(arguments[0].title)
+        $scope.alertIsHidden = !$scope.alertIsHidden;
+        if(App.isiPad) $('#sendMessage').blur();
+    }
+}])
 
 .controller('LoginController', function($scope, $rootScope, $controller, $location, $timeout, events, authenticate, Contact){
 

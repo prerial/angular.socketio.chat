@@ -2,6 +2,7 @@ angular.module('comcenterapp', [
     'ngRoute',
     'comcenterModels',
     'comcenterConstants',
+    'connectAnimations',
     'comcenterControllers',
     'comcenterTemplates',
     'comcenterFilters',
@@ -20,6 +21,17 @@ angular.module('comcenterapp', [
         }).
         otherwise({
             redirectTo: '/login'
-        });
-}]);
+        })
 
+}])
+.run(['$rootScope', '$location',
+    function ($rootScope, $location) {
+        $rootScope.globals = {};
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in
+            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+                $location.path('/login');
+            }
+        });
+    }
+]);
