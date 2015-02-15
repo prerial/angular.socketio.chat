@@ -267,5 +267,3 @@ angular.module('comcenterControllers', [])
 
 })
 
-
-
