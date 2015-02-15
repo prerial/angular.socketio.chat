@@ -3,7 +3,7 @@
         "cnport": "cn001",
         "vrport": "vr001",
         "title": "John Doe",
-        "avatar": "imgs/chat/GregoryPeck.jpg",
+        "avatar": "client/imgs/chat/GregoryPeck.jpg",
         "profile": {
             "firstname": "John",
             "midname": "",

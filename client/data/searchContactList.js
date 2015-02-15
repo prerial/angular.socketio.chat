@@ -1,12 +1,12 @@
 [
     {
-        "chid": "001",
-        "cnport": "cn001",
-        "vrport": "vr001",
-        "title": "John Doe",
-        "avatar": "client/imgs/chat/GregoryPeck.jpg",
+        "chid": "010",
+        "cnport": "cn010",
+        "cmport": "cm010",
+        "title": "Jane Doe",
+        "avatar": "imgs/chat/MarilynMonroe.jpg",
         "profile": {
-            "firstname": "John",
+            "firstname": "Jane",
             "midname": "",
             "lastname": "Doe",
             "country": "USA",
@@ -17,18 +17,18 @@
                 "office": "(718) 123-4567",
                 "mobile": ""
             },
-            "email": "john.doe@citi.com",
+            "email": "jane.doe@citi.com",
             "location": "1 Court Pl, NY",
-            "gender": "male"
+            "gender": "female"
         },
-        "presence": "offline"
+        "presence": "online"
     },
 {
-    "chid": "003",
-    "cnport": "cn003",
-    "vrport": "vr003",
+    "chid": "011",
+    "cnport": "cn011",
+    "cmport": "cm011",
     "title": "Jack Doe",
-    "avatar": "client/imgs/chat/PaulNewman.jpg",
+    "avatar": "imgs/chat/PaulNewman.jpg",
     "profile": {
         "firstname": "Jack",
         "midname": "",
@@ -45,14 +45,14 @@
         "location": "1 Court Pl, NY",
         "gender": "male"
     },
-    "presence": "offline"
-},
+    "presence": "online"
+  },
   {
-      "chid": "004",
-      "cnport": "cn004",
-      "vrport": "vr004",
+      "chid": "012",
+      "cnport": "cn012",
+      "cmport": "cm012",
       "title": "Norman Spinrad",
-      "avatar": "client/imgs/chat/NormanSpinrad.jpg",
+      "avatar": "imgs/chat/NormanSpinrad.jpg",
       "profile": {
           "firstname": "Norman",
           "midname": "",
@@ -69,14 +69,14 @@
           "location": "100 Citibank Dr, S. Antonio, TX",
           "gender": "male"
       },
-      "presence": "offline"
+      "presence": "busy"
   },
   {
-      "chid": "005",
-      "cnport": "cn005",
-      "vrport": "vr005",
+      "chid": "013",
+      "cnport": "cn013",
+      "cmport": "cm013",
       "title": "Alice Snyder",
-      "avatar": "client/imgs/chat/avatar_f.gif",
+      "avatar": "imgs/chat/avatar_f.gif",
       "profile": {
           "firstname": "Alice",
           "midname": "",
@@ -97,11 +97,11 @@
   }
   ,
   {
-      "chid": "006",
-      "cnport": "cn006",
-      "vrport": "vr006",
+      "chid": "014",
+      "cnport": "cn014",
+      "cmport": "cm014",
       "title": "Charles Snyder",
-      "avatar": "client/imgs/chat/avatar_m.gif",
+      "avatar": "imgs/chat/avatar_m.gif",
       "profile": {
           "firstname": "Charles",
           "midname": "",
@@ -118,14 +118,14 @@
           "location": "10 Harborside PL, NJ",
           "gender": "male"
       },
-      "presence": "offline"
+      "presence": "online"
   },
     {
-        "chid": "007",
-        "cnport": "cn007",
-        "vrport": "vr007",
+        "chid": "015",
+        "cnport": "cn015",
+        "cmport": "cm015",
         "title": "Jane Smith",
-        "avatar": "client/imgs/chat/AudreyHupburn.jpg",
+        "avatar": "imgs/chat/AudreyHupburn.jpg",
         "profile": {
             "firstname": "Jane",
             "midname": "",
@@ -142,19 +142,19 @@
             "location": "100 Citibank Dr, S. Antonio, TX",
             "gender": "female"
         },
-        "presence": "offline"
+        "presence": "away"
     },
 
   {
-      "chid": "008",
-      "cnport": "cn008",
-      "vrport": "vr008",
-      "title": "Cary Grant",
-      "avatar": "client/imgs/chat/CaryGrant.jpg",
+      "chid": "016",
+      "cnport": "cn016",
+      "cmport": "cm016",
+      "title": "Jane Richards",
+      "avatar": "imgs/chat/avatar_f.gif",
       "profile": {
-          "firstname": "Cary",
+          "firstname": "Jane",
           "midname": "",
-          "lastname": "Grant",
+          "lastname": "Richards",
           "country": "USA",
           "state": "CA",
           "city": "Santa Rosa",
@@ -163,18 +163,18 @@
               "office": "(718) 123-4567",
               "mobile": ""
           },
-          "email": "cary.grant@citi.com",
+          "email": "jane.richards@citi.com",
           "location": "1 Court Pl, NY",
-          "gender": "male"
+          "gender": "female"
       },
-      "presence": "offline"
+      "presence": "busy"
   },
   {
-      "chid": "009",
-      "cnport": "cn009",
-      "vrport": "vr009",
+      "chid": "017",
+      "cnport": "cn017",
+      "cmport": "cm017",
       "title": "John Smith",
-      "avatar": "client/imgs/chat/avatar_m.gif",
+      "avatar": "imgs/chat/avatar_m.gif",
       "profile": {
           "firstname": "John",
           "midname": "",
@@ -191,6 +191,6 @@
           "location": "10 Harborside PL, NJ",
           "gender": "male"
       },
-      "presence": "offline"
+      "presence": "away"
   }
  ]

@@ -23,6 +23,30 @@
         },
         "presence": "offline"
     },
+    {
+        "chid": "002",
+        "cnport": "cn002",
+        "vrport": "vr002",
+        "title": "Jane Doe",
+        "avatar": "client/imgs/chat/MarilynMonroe.jpg",
+        "profile": {
+            "firstname": "Jane",
+            "midname": "",
+            "lastname": "Doe",
+            "country": "USA",
+            "state": "CA",
+            "city": "Santa Rosa",
+            "phones": {
+                "home": "(707) 123-4567",
+                "office": "(718) 123-4567",
+                "mobile": ""
+            },
+            "email": "jane.doe@citi.com",
+            "location": "1 Court Pl, NY",
+            "gender": "female"
+        },
+        "presence": "offline"
+    },
 {
     "chid": "003",
     "cnport": "cn003",
@@ -46,30 +70,6 @@
         "gender": "male"
     },
     "presence": "offline"
-},
-  {
-      "chid": "004",
-      "cnport": "cn004",
-      "vrport": "vr004",
-      "title": "Norman Spinrad",
-      "avatar": "client/imgs/chat/NormanSpinrad.jpg",
-      "profile": {
-          "firstname": "Norman",
-          "midname": "",
-          "lastname": "Spinrad",
-          "country": "USA",
-          "state": "CA",
-          "city": "Santa Rosa",
-          "phones": {
-              "home": "(707) 123-4567",
-              "office": "(718) 123-4567",
-              "mobile": ""
-          },
-          "email": "norman.spinrad@citi.com",
-          "location": "100 Citibank Dr, S. Antonio, TX",
-          "gender": "male"
-      },
-      "presence": "offline"
   },
   {
       "chid": "005",

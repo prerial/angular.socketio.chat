@@ -23,6 +23,30 @@
         },
         "presence": "offline"
     },
+    {
+        "chid": "002",
+        "cnport": "cn002",
+        "vrport": "vr002",
+        "title": "Jane Doe",
+        "avatar": "client/imgs/chat/MarilynMonroe.jpg",
+        "profile": {
+            "firstname": "Jane",
+            "midname": "",
+            "lastname": "Doe",
+            "country": "USA",
+            "state": "CA",
+            "city": "Santa Rosa",
+            "phones": {
+                "home": "(707) 123-4567",
+                "office": "(718) 123-4567",
+                "mobile": ""
+            },
+            "email": "jane.doe@citi.com",
+            "location": "1 Court Pl, NY",
+            "gender": "female"
+        },
+        "presence": "offline"
+    },
 {
     "chid": "003",
     "cnport": "cn003",
@@ -46,7 +70,7 @@
         "gender": "male"
     },
     "presence": "offline"
-},
+  },
   {
       "chid": "004",
       "cnport": "cn004",
@@ -144,31 +168,6 @@
         },
         "presence": "offline"
     },
-
-  {
-      "chid": "008",
-      "cnport": "cn008",
-      "vrport": "vr008",
-      "title": "Cary Grant",
-      "avatar": "client/imgs/chat/CaryGrant.jpg",
-      "profile": {
-          "firstname": "Cary",
-          "midname": "",
-          "lastname": "Grant",
-          "country": "USA",
-          "state": "CA",
-          "city": "Santa Rosa",
-          "phones": {
-              "home": "(707) 123-4567",
-              "office": "(718) 123-4567",
-              "mobile": ""
-          },
-          "email": "cary.grant@citi.com",
-          "location": "1 Court Pl, NY",
-          "gender": "male"
-      },
-      "presence": "offline"
-  },
   {
       "chid": "009",
       "cnport": "cn009",

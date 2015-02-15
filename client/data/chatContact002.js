@@ -3,7 +3,7 @@
         "cnport": "cn002",
         "vrport": "vr002",
         "title": "Jane Doe",
-        "avatar": "imgs/chat/MarilynMonroe.jpg",
+        "avatar": "client/imgs/chat/MarilynMonroe.jpg",
         "profile": {
             "firstname": "Jane",
             "midname": "",

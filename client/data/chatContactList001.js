@@ -4,7 +4,7 @@
         "cnport": "cn002",
         "vrport": "vr002",
         "title": "Jane Doe",
-        "avatar": "imgs/chat/MarilynMonroe.jpg",
+        "avatar": "client/imgs/chat/MarilynMonroe.jpg",
         "profile": {
             "firstname": "Jane",
             "midname": "",
@@ -28,7 +28,7 @@
     "cnport": "cn003",
     "vrport": "vr003",
     "title": "Jack Doe",
-    "avatar": "imgs/chat/PaulNewman.jpg",
+    "avatar": "client/imgs/chat/PaulNewman.jpg",
     "profile": {
         "firstname": "Jack",
         "midname": "",
@@ -52,7 +52,7 @@
       "cnport": "cn004",
       "vrport": "vr004",
       "title": "Norman Spinrad",
-      "avatar": "imgs/chat/NormanSpinrad.jpg",
+      "avatar": "client/imgs/chat/NormanSpinrad.jpg",
       "profile": {
           "firstname": "Norman",
           "midname": "",
@@ -76,7 +76,7 @@
       "cnport": "cn005",
       "vrport": "vr005",
       "title": "Alice Snyder",
-      "avatar": "imgs/chat/avatar_f.gif",
+      "avatar": "client/imgs/chat/avatar_f.gif",
       "profile": {
           "firstname": "Alice",
           "midname": "",
@@ -101,7 +101,7 @@
       "cnport": "cn006",
       "vrport": "vr006",
       "title": "Charles Snyder",
-      "avatar": "imgs/chat/avatar_m.gif",
+      "avatar": "client/imgs/chat/avatar_m.gif",
       "profile": {
           "firstname": "Charles",
           "midname": "",
@@ -125,7 +125,7 @@
         "cnport": "cn007",
         "vrport": "vr007",
         "title": "Jane Smith",
-        "avatar": "imgs/chat/AudreyHupburn.jpg",
+        "avatar": "client/imgs/chat/AudreyHupburn.jpg",
         "profile": {
             "firstname": "Jane",
             "midname": "",
@@ -150,7 +150,7 @@
       "cnport": "cn008",
       "vrport": "vr008",
       "title": "Cary Grant",
-      "avatar": "imgs/chat/CaryGrant.jpg",
+      "avatar": "client/imgs/chat/CaryGrant.jpg",
       "profile": {
           "firstname": "Cary",
           "midname": "",
@@ -174,7 +174,7 @@
       "cnport": "cn009",
       "vrport": "vr009",
       "title": "John Smith",
-      "avatar": "imgs/chat/avatar_m.gif",
+      "avatar": "client/imgs/chat/avatar_m.gif",
       "profile": {
           "firstname": "John",
           "midname": "",

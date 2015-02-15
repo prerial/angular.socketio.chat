@@ -23,6 +23,30 @@
         },
         "presence": "offline"
     },
+    {
+        "chid": "002",
+        "cnport": "cn002",
+        "vrport": "vr002",
+        "title": "Jane Doe",
+        "avatar": "client/imgs/chat/MarilynMonroe.jpg",
+        "profile": {
+            "firstname": "Jane",
+            "midname": "",
+            "lastname": "Doe",
+            "country": "USA",
+            "state": "CA",
+            "city": "Santa Rosa",
+            "phones": {
+                "home": "(707) 123-4567",
+                "office": "(718) 123-4567",
+                "mobile": ""
+            },
+            "email": "jane.doe@citi.com",
+            "location": "1 Court Pl, NY",
+            "gender": "female"
+        },
+        "presence": "offline"
+    },
 {
     "chid": "003",
     "cnport": "cn003",
@@ -46,7 +70,7 @@
         "gender": "male"
     },
     "presence": "offline"
-},
+  },
   {
       "chid": "004",
       "cnport": "cn004",
@@ -120,31 +144,6 @@
       },
       "presence": "offline"
   },
-    {
-        "chid": "007",
-        "cnport": "cn007",
-        "vrport": "vr007",
-        "title": "Jane Smith",
-        "avatar": "client/imgs/chat/AudreyHupburn.jpg",
-        "profile": {
-            "firstname": "Jane",
-            "midname": "",
-            "lastname": "Smith",
-            "country": "USA",
-            "state": "CA",
-            "city": "Santa Rosa",
-            "phones": {
-                "home": "(707) 123-4567",
-                "office": "(718) 123-4567",
-                "mobile": ""
-            },
-            "email": "jane.smith@citi.com",
-            "location": "100 Citibank Dr, S. Antonio, TX",
-            "gender": "female"
-        },
-        "presence": "offline"
-    },
-
   {
       "chid": "008",
       "cnport": "cn008",

@@ -1,28 +1,5 @@
 angular.module('comcenterServices', ['ngResource'])
 
-.factory('beforeUnload', function ($rootScope, $window, $location) {
-
-    // Events are broadcast outside the Scope Lifecycle
-
-    $window.onbeforeunload = function (e) {
-        var confirmation = {};
-        var event = $rootScope.$broadcast('onBeforeUnload', confirmation);
-        if (event.defaultPrevented) {
-            return confirmation.message;
-        }
-    };
-
-    $window.onunload = function () {
-        $rootScope.$broadcast('onUnload');
-    };
-
-    return {};
-})
-
-.run(function (beforeUnload) {
-    // Must invoke the service at least once
-})
-
 .factory('authenticate', function ($http, messaging, logging, events) {
 
     var authenticationFailureHandler = function () {
@@ -43,7 +20,7 @@ angular.module('comcenterServices', ['ngResource'])
     var login = function (param) {
         $http.get('data/chatContact00' + param.user + '.js')
         .then(authenticationSuccessHandler, authenticationFailureHandler);
-        messaging.publish(events.message._GET_CONTACTS_, [param.user]);
+        messaging.publish(events.message._GET_CONTACTS_, [param.name]);
     };
 
     messaging.subscribe(events.message._AUTHENTICATE_USER_, login);
@@ -51,35 +28,6 @@ angular.module('comcenterServices', ['ngResource'])
     return {
         authenticationFailureHandler: authenticationFailureHandler,
         login: login
-    };
-
-})
-
-.factory('contactlist', function ($http, messaging, logging, events) {
-
-    var getcontactsFailureHandler = function () {
-        messaging.publish(events.message._GET_CONTACTS_FAILED_);
-        messaging.publish(events.message._SERVER_REQUEST_ENDED_);
-    };
-
-    var getcontactsSuccessHandler = function (response) {
-        if (response.data.length > 0) {
-            messaging.publish(events.message._GET_CONTACTS_COMPLETE_, [response.data]);
-        } else {
-            authenticationFailureHandler();
-        }
-    };
-
-    var getcontacts = function (param) {
-        $http.get('data/chatContactList00' + param + '.js')
-        .then(getcontactsSuccessHandler, getcontactsFailureHandler);
-    };
-
-    messaging.subscribe(events.message._GET_CONTACTS_, getcontacts);
-
-    return {
-        getcontactsFailureHandler: getcontactsFailureHandler,
-        getcontacts: getcontacts
     };
 
 })

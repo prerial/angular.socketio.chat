@@ -144,7 +144,7 @@ Prerial.Config.InitContactData = {
         "location": "1 Court Pl, NY",
         "gender": "male"
     },
-    "avatar": "imgs/chat/avatar_m.gif",
+    "avatar": "client/imgs/chat/avatar_m.gif",
     "presence": "offline"
 };
 Prerial.Config.TestChatList = {}
@@ -170,7 +170,7 @@ Prerial.Config.TestChatList['john.doe@citi.com'] =
         "location": "1 Court Pl, NY",
         "gender": "male"
     },
-    "avatar": "imgs/chat/GregoryPeck.jpg",
+    "avatar": "client/imgs/chat/GregoryPeck.jpg",
     "presence": "offline"
 };
 Prerial.Config.TestChatList['jane.doe@citi.com'] =
@@ -180,7 +180,7 @@ Prerial.Config.TestChatList['jane.doe@citi.com'] =
     "vrport": "vr002",
     "title": "Jane Doe",
     "location": "1 Court Pl, NY",
-    "avatar": "imgs/chat/MarilynMonroe.jpg",
+    "avatar": "client/imgs/chat/MarilynMonroe.jpg",
     "profile": {
         "firstname": "Jane",
         "midname": "",
@@ -206,7 +206,7 @@ Prerial.Config.TestChatList['jack.doe@citi.com'] =
     "vrport": "vr003",
     "title": "Jack Doe",
     "location": "1 Court Pl, NY",
-    "avatar": "imgs/chat/PaulNewman.jpg",
+    "avatar": "client/imgs/chat/PaulNewman.jpg",
     "profile": {
         "firstname": "Jack",
         "midname": "",
@@ -231,7 +231,7 @@ Prerial.Config.TestChatList['norman.spinrad@citi.com'] =
       "cnport": "cn004",
       "vrport": "vr004",
       "title": "Norman Spinrad",
-      "avatar": "imgs/chat/NormanSpinrad.jpg",
+      "avatar": "client/imgs/chat/NormanSpinrad.jpg",
       "profile": {
           "firstname": "Norman",
           "midname": "",
@@ -256,7 +256,7 @@ Prerial.Config.TestChatList['alice.snyder@citi.com'] =
       "cnport": "cn005",
       "vrport": "vr005",
       "title": "Alice Snyder",
-      "avatar": "imgs/chat/avatar_f.gif",
+      "avatar": "client/imgs/chat/avatar_f.gif",
       "profile": {
           "firstname": "Alice",
           "midname": "",
@@ -281,7 +281,7 @@ Prerial.Config.TestChatList['charles.snyder@citi.com'] =
       "cnport": "cn006",
       "vrport": "vr006",
       "title": "Charles Snyder",
-      "avatar": "imgs/chat/avatar_m.gif",
+      "avatar": "client/imgs/chat/avatar_m.gif",
       "profile": {
           "firstname": "Charles",
           "midname": "",
@@ -307,7 +307,7 @@ Prerial.Config.TestChatList['jane.smith@citi.com'] =
         "cnport": "cn007",
         "vrport": "vr007",
         "title": "Jane Smith",
-        "avatar": "imgs/chat/AudreyHupburn.jpg",
+        "avatar": "client/imgs/chat/AudreyHupburn.jpg",
         "profile": {
             "firstname": "Jane",
             "midname": "",
