@@ -14,10 +14,10 @@ angular.module("comcenterTemplates", [
 
 angular.module("login.html", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("login.html",
-        '<div class="dialog-box" ng-controller="LoginController">\n' +
+        '<div class="dialog-box">\n' +
         '    <div class="dialog-box-title">Sign In (select user)</div>\n' +
         '    <div class="dialog-box-content">\n' +
-        '    <form method="post" ng-submit="login()" name="loginForm">\n' +
+        '    <form method="post" ng-submit="loginApp()" name="loginForm">\n' +
         '        <div class="inlay"><select style="border: 0px solid red" ng-model="myUser" ng-options="user.name for user in users"></select></div>\n' +
         '        <div class="inlay"><input type="text" value="Password is not required" disabled id="password" style="color:#aaa"></div>\n' +
         '        <button class="button boxcenter signin" type="submit">Sign In</button>\n' +
@@ -211,6 +211,3 @@ angular.module("alert.html", []).run(["$templateCache", function($templateCache)
         '</div>\n' +
     "");
 }]);
-
-
-

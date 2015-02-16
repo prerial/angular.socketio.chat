@@ -2,6 +2,7 @@ angular.module('comcenterDirectives', ['ngAnimate'])
 
 .directive('comCenterIcon', ['$controller', '$animate', 'messaging', 'logging', 'events', function($controller, $animate, messaging, logging, events) {
     return function(scope, element, attrs) {
+        scope.opened = false;
         $controller('BaseCtrl', {$scope: scope});
         var openComCenter = function(){
             if(scope.opened || scope.opened === undefined){

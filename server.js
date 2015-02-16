@@ -1,15 +1,25 @@
-var express = require('express'),
-    app = module.exports.app = express();
+var express = require("express");
+var app = express();
+var http = require("http").Server(app);
+var path = express("path");
+var io = require("socket.io")(http);
+var server = require('http').createServer(app)
+app.use(express.static(__dirname + '/client'));
+app.set('port', process.env.PORT || 3000);
 
-app.configure(function () {
-    app.use(express.favicon());
-    app.use(express.bodyParser());
-    app.use(express.logger('dev'));  //tiny, short, default
-    app.use(app.router);
-    app.use(express.static(__dirname + '/client'));
-    app.use(express.errorHandler({dumpExceptions: true, showStack: true, showMessage: true}));
+io.on("connection", function(socket){
+    socket.on("chat", function(msg){
+        console.log(msg);
+        io.emit("chat", msg);
+    });
+    socket.on("video", function(msg){
+        io.emit("video", msg);
+    });
+    socket.on("audio", function(msg){
+        io.emit("audio", msg);
+    });
 });
 
-app.listen(3000, function() {
-    console.log("Listening on 3000");
+http.listen(3000, function(){
+  console.log('listening on: 3000');
 });

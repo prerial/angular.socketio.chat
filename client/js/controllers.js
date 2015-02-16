@@ -1,9 +1,10 @@
 angular.module('comcenterControllers', [])
 
-.controller('chatController', ['$scope',
-  function ($scope) {
+.controller('chatController', ['$scope', 'websocket',
+  function ($scope, websocket) {
     $scope.onKeyUp = function ($event) {
         if($event.keyCode === 13){
+            websocket.send({event:'AAAAAAAAAAA', data:'vrbsocket'});
 
             if(App.chat.conversations.active !== null){
                 var presence = angular.element('#chat_toolbar').scope().getPresence();
@@ -67,31 +68,6 @@ angular.module('comcenterControllers', [])
         console.log('leaving page'); // Use 'Preserve Log' option in Console
     });
 
-
-/*
-                Prerial.Config.User['presence'] = 'online';
-                App.chat.conversations.Websocket = new WebSocket({
-                    url: 'https://chat.firebaseIO.com/prerial/',
-                    userid: Prerial.Config.User['chid'],
-                    onmessage: function(data){
-                        $scope.$emit('socketMessage', {data: data});
-                    },
-                    useStatus: true
-                });
-                App.chat.conversations.Websocket = new NodeWebSocket({
-                    websocket: SocketIO,
-                    evt:'message',
-                    onmessage:     function(data){
-                        $scope.$emit('socketMessage', {data: data});
-//                        App.eventManager.trigger("serverMessage", { data: data });
-                    },
-//                    $('#messages').append($('<li>').text(data.type));},
-//                    url: 'https://chat.firebaseIO.com/prerial/',
-                    userid: Prerial.Config.User['chid'],
-                    useStatus: true
-                });
-                App.chat.conversations.Websocket.send({'event': 'setPresence', 'chid': Prerial.Config.User['chid'], 'presence':'online'});
-*/
 })
 
 .controller('ChatToolbarController', ['$scope','$timeout', '$controller', 'events',
@@ -174,6 +150,7 @@ angular.module('comcenterControllers', [])
 })
 
 .controller("AppController", ['$scope', function($scope) {
+
     $scope.alertIsHidden = false;
     $scope.showAlert = function() {
         $(".alert-box-message").html(arguments[0].message)
@@ -181,9 +158,34 @@ angular.module('comcenterControllers', [])
         $scope.alertIsHidden = !$scope.alertIsHidden;
         if(App.isiPad) $('#sendMessage').blur();
     }
+/*
+                Prerial.Config.User['presence'] = 'online';
+                App.chat.conversations.Websocket = new WebSocket({
+                    url: 'https://chat.firebaseIO.com/prerial/',
+                    userid: Prerial.Config.User['chid'],
+                    onmessage: function(data){
+                        $scope.$emit('socketMessage', {data: data});
+                    },
+                    useStatus: true
+                });
+//                App.chat.conversations.Websocket = new NodeWebSocket({
+                App.chat.conversations.Websocket = new ngWebSocket({
+                    websocket: SocketIO,
+                    evt:'message',
+                    onmessage:     function(data){
+                        $scope.$emit('socketMessage', {data: data});
+//                        App.eventManager.trigger("serverMessage", { data: data });
+                    },
+//                    $('#messages').append($('<li>').text(data.type));},
+//                    url: 'https://chat.firebaseIO.com/prerial/',
+                    userid: Prerial.Config.User['chid'],
+                    useStatus: true
+                });
+                App.chat.conversations.Websocket.send({'event': 'setPresence', 'chid': Prerial.Config.User['chid'], 'presence':'online'});
+*/
 }])
 
-.controller('LoginController', function($scope, $rootScope, $controller, $location, $timeout, events, authenticate, Contact){
+.controller('LoginController', function($scope, $rootScope, $controller, $location, $timeout, events, websocket, authenticate, Contact){
 
     $controller('BaseCtrl', {$scope: $scope});
 
@@ -192,25 +194,32 @@ angular.module('comcenterControllers', [])
     $scope.username = '';
     $scope.password = '';
     $scope.currentUser = $scope.users[0];
-    $scope.userAuthenticated = false;
+    var userAuthenticated = false;
 
-    $scope.authenticateUserCompletedHandler = function(user) {
-        if(user){
-            $scope.currentUser = user;
-            $rootScope.globals.currentUser = user;
-            $scope.userAuthenticated = true;
-            $scope.traceInfo("authenticateUserCompletedHandler received: " + angular.toJson(user));
+    var authenticateUserCompletedHandler = function(user) {
+        if(user && !userAuthenticated){
+            $scope.currentUser = user[0];
+            $rootScope.globals.currentUser = user[0];
+            userAuthenticated = true;
+//            $scope.traceInfo("authenticateUserCompletedHandler received: " + angular.toJson(user[0]));
             $location.path('/home');
+            websocket.initialize({
+                websocket: io,
+                userid: user[0].chid,
+                useStatus: true
+            });
+            websocket.send({event:'INITIALIZED', data:'vebsocket'});
             $timeout(function(){
                 $scope.publish(events.message._OPEN_COMCENTER_, [user]);
             },100);
         }
+        return false;
     };
 
-    $scope.subscribe(events.message._AUTHENTICATE_USER_COMPLETE_, $scope.authenticateUserCompletedHandler);
+    $scope.subscribe(events.message._AUTHENTICATE_USER_COMPLETE_, authenticateUserCompletedHandler);
 
-    $scope.login = function() {
-        $scope.traceInfo("authenticateUserCompletedHandler authenticating user: " + $scope.username);
+    $scope.loginApp = function() {
+//        $scope.traceInfo("authenticateUserCompletedHandler authenticating user: " + $scope.username);
         $scope.publish(events.message._AUTHENTICATE_USER_, [$scope.myUser]);
     };
 })
@@ -266,4 +275,6 @@ angular.module('comcenterControllers', [])
     };
 
 })
+
+
 
