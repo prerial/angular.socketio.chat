@@ -124,19 +124,21 @@ angular.module('comcenterServices', ['ngResource'])
 })
 
 .service('websocket', ['messaging', function(messaging){
-    var _this = this;
     var websocket = null;
     var userid = null;
+    var user = null;
     var initialize = function(param) {
+        user = param.user;
         userid = param.userid;
         websocket = new param.websocket();
         websocket.on('chat', function (msg) {
             if(msg.userid !== userid){
-                messaging.publish(msg.event, [msg.data]);
+                messaging.publish(msg.event, [msg]);
             }
         });
     };
     var send = function(param) {
+        param.user = user;
         param.userid = userid;
         websocket.emit('chat', param);
     };

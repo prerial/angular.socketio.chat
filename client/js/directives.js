@@ -28,6 +28,48 @@ angular.module('comcenterDirectives', ['ngAnimate'])
      };
 }])
 
+.directive('chatSendMessage', ['websocket', function (websocket) {
+    return {
+        scope : true,
+        link: function(scope, elem, attr, ctrl) {
+            elem.bind('keypress', function(event){
+                if(event.keyCode === 13){
+debugger
+            if(App.chat.conversations.active !== null){
+                var presence = angular.element('#chat_toolbar').scope().getPresence();
+                if(presence !== 'online'){
+                    angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
+                    return;
+                }
+            }else{
+                angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Please select Contact'});
+                //alert('Please select Contact');
+                return;
+            }
+debugger
+                    angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
+                    var liItem = $('<li style="display:block;" class="bubble"></li>').append('Me:&nbsp;' + elem.val());
+                    $('#chat_display_holder ul').append(liItem);
+                    elem.val('').blur();
+                    websocket.send({'event': 'chatMessage', 'data':elem.val()});
+                }
+            });
+        }
+     };
+}])
+
+.directive("contactSelected", ['$controller', 'events', function($controller, events) {
+    return function(scope, element, attrs) {
+        $controller('BaseCtrl', {$scope: scope});
+        element.on('click', function() {
+            App.chat.conversations.active = true;
+            $(".contact-list").removeClass('hilited');
+            element.addClass('hilited');
+            scope.publish(events.message._SET_CONTACT_FROM_LIST_, [{data: scope.contact}]);
+        });
+    };
+}])
+
 .directive("alertUtil", function($animate) {
 
     return  {

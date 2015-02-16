@@ -1,16 +1,49 @@
 angular.module('comcenterControllers', [])
 
+.controller("AppController", ['$scope', '$window', 'websocket', 'messaging', function($scope, $window, websocket, messaging) {
+
+    $scope.alertIsHidden = false;
+    $scope.showAlert = function() {
+        $(".alert-box-message").html(arguments[0].message)
+        $(".alert-box-title").html(arguments[0].title)
+        $scope.alertIsHidden = !$scope.alertIsHidden;
+        if(App.isiPad) $('#sendMessage').blur();
+    }
+    var chatResponce = function(args){
+        switch (args.event) {
+            case 'chatMessage':
+                var user = args.user;
+                var name = user.profile.firstname + '&nbsp;' + user.profile.lastname;
+                var liItem = $('<li style="display:block;" class="bubble bubble--alt"></li>').append(name + ':&nbsp;' + args.data);
+                $('#chat_display_holder ul').append(liItem);
+                $('.modeChat').click();
+                break;
+            case 'setPresence':
+                messaging.publish('setPresence',[{ 'chid': args.user.chid, 'user': args.user, 'presence': args.presence }]);
+                websocket.send({ 'event': 'updatePresence', 'presence': 'online' });
+                break;
+            case 'updatePresence':
+                messaging.publish('updatePresence',[{ 'chid': args.user.chid, 'user': args.user, 'presence': args.presence }]);
+                break;
+        }
+    }
+    $window.onbeforeunload = function (e) {
+        websocket.send({ 'event': 'updatePresence', 'presence': 'offline' });
+    };
+    messaging.subscribe('chatMessage', chatResponce);
+    messaging.subscribe('setPresence', chatResponce);
+    messaging.subscribe('updatePresence', chatResponce);
+
+}])
+
 .controller('chatController', ['$scope', 'websocket',
   function ($scope, websocket) {
     $scope.onKeyUp = function ($event) {
         if($event.keyCode === 13){
-            websocket.send({event:'AAAAAAAAAAA', data:'vrbsocket'});
-
             if(App.chat.conversations.active !== null){
                 var presence = angular.element('#chat_toolbar').scope().getPresence();
                 if(presence !== 'online'){
                     angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
-//                    alert('Selected Contact is not Online');
                     return;
                 }
             }else{
@@ -18,7 +51,7 @@ angular.module('comcenterControllers', [])
                 //alert('Please select Contact');
                 return;
             }
-            App.chat.conversations.Websocket.send({'event': 'chatMessage', 'user': Prerial.Config.User, 'message':$('#sendMessage').val()});
+            websocket.send({'event': 'chatMessage', 'user': Prerial.Config.User, 'data':$('#sendMessage').val()});
             var liItem = $('<li style="display:block;" class="bubble"></li>').append('Me:&nbsp;' + $('#sendMessage').val());
             $('#chat_display_holder ul').append(liItem);
             $('#sendMessage').val('').blur();
@@ -91,11 +124,11 @@ angular.module('comcenterControllers', [])
             argcontact.presence = 'offline';
             $scope.contact = argcontact;
             $scope.mainImageUrl = argcontact.avatar;
-    //        App.chat.conversations.active = argcontact.profile.email;
+            App.chat.conversations.active = argcontact.profile.email;
+                $scope.contact = argcontact;
             $timeout(function(){
                 argcontact.presence = presence;
-                $scope.contact = argcontact;
-            },500)
+            },100)
         };
         $scope.subscribe(events.message._SET_CONTACT_PRESENCE_, setcontactpresence);
         $scope.subscribe(events.message._SET_CONTACT_FROM_LIST_, setcontactfromslist);
@@ -111,27 +144,30 @@ angular.module('comcenterControllers', [])
         $scope.contacts = data;
     };
     $scope.userstr = 1;
-    $scope.$on('updatePresence', function(event, args) {
-        angular.element('#user_'+args.data.chid).scope().contact.presence = args.data.presence;
+    $scope.subscribe('setPresence', function(args) {
+        angular.forEach($scope.contacts, function (value, key, arr) {
+            if (value.chid === args.chid){
+                value.presence = args.presence;
+            }
+        });
         $scope.$apply();
     });
-    $scope.$on('setLoginUser', function(event, args) {
-        if(args === undefined) args = {name: "John Doe",user: "1",value: "john.doe@citi.com"};
-        $scope.userstr = args.user;
-        $scope.userContact = Prerial.Config.User = Prerial.Config.TestChatList[args.value];
-        $scope.$emit('handleEmit', {event: 'userContactContact', data: $scope.userContact});
-        $http.get('data/chatContactList00' + $scope.userstr + '.js').success(function(data) {
-            $scope.contacts = data;
-            $scope.$emit('handleEmit', {event: 'setContacts', data: data});
+    $scope.subscribe('updatePresence', function(args) {
+        angular.forEach($scope.contacts, function (value, key, arr) {
+            if (value.chid === args.chid){
+                value.presence = args.presence;
+            }
         });
+        $scope.$apply();
     });
+/*
     $scope.setContact = function(cont, event) {
         $(".contact-list").removeClass('hilited');
         $(event.target)[0].tagName === 'li'? $(event.target).addClass('hilited') : $(event.target).closest('li').addClass('hilited');
         $scope.publish(events.message._SET_CONTACT_FROM_LIST_, [{data: cont}]);
-//        $scope.$emit('handleEmit', {event: 'chatToolbarContact', data: cont});
     };
     $scope.$emit('handleEmit', {event: 'getLoginUser', data: ''});
+*/
     $scope.subscribe(events.message._GET_CONTACTS_COMPLETE_, setcontactslist);
 
 })
@@ -148,42 +184,6 @@ angular.module('comcenterControllers', [])
             $scope.sharedObj.type = 'audio';
         };
 })
-
-.controller("AppController", ['$scope', function($scope) {
-
-    $scope.alertIsHidden = false;
-    $scope.showAlert = function() {
-        $(".alert-box-message").html(arguments[0].message)
-        $(".alert-box-title").html(arguments[0].title)
-        $scope.alertIsHidden = !$scope.alertIsHidden;
-        if(App.isiPad) $('#sendMessage').blur();
-    }
-/*
-                Prerial.Config.User['presence'] = 'online';
-                App.chat.conversations.Websocket = new WebSocket({
-                    url: 'https://chat.firebaseIO.com/prerial/',
-                    userid: Prerial.Config.User['chid'],
-                    onmessage: function(data){
-                        $scope.$emit('socketMessage', {data: data});
-                    },
-                    useStatus: true
-                });
-//                App.chat.conversations.Websocket = new NodeWebSocket({
-                App.chat.conversations.Websocket = new ngWebSocket({
-                    websocket: SocketIO,
-                    evt:'message',
-                    onmessage:     function(data){
-                        $scope.$emit('socketMessage', {data: data});
-//                        App.eventManager.trigger("serverMessage", { data: data });
-                    },
-//                    $('#messages').append($('<li>').text(data.type));},
-//                    url: 'https://chat.firebaseIO.com/prerial/',
-                    userid: Prerial.Config.User['chid'],
-                    useStatus: true
-                });
-                App.chat.conversations.Websocket.send({'event': 'setPresence', 'chid': Prerial.Config.User['chid'], 'presence':'online'});
-*/
-}])
 
 .controller('LoginController', function($scope, $rootScope, $controller, $location, $timeout, events, websocket, authenticate, Contact){
 
@@ -205,12 +205,13 @@ angular.module('comcenterControllers', [])
             $location.path('/home');
             websocket.initialize({
                 websocket: io,
-                userid: user[0].chid,
-                useStatus: true
+                user: user[0],
+                userid: user[0].chid
             });
             websocket.send({event:'INITIALIZED', data:'vebsocket'});
             $timeout(function(){
                 $scope.publish(events.message._OPEN_COMCENTER_, [user]);
+                websocket.send({'event': 'setPresence', 'presence':'online'});
             },100);
         }
         return false;
