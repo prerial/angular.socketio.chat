@@ -18,8 +18,8 @@
 - $ node server or dbl click server.bat
 
 ### Application
-- Open first Chrome browser http://localhost:3000/
+- Open first Chrome browser window URL: http://localhost:3000/
 - Login as John Doe (no password required)
 
-- Open second Chrome browser http://localhost:3000/
+- Open second Chrome browser window URL: http://localhost:3000/
 - Login as Jane Doe (no password required)
