@@ -12,14 +12,14 @@
 - Get [Node.js][node-download].
 
 - install packages
-$ npm install
+- $ npm install
 
 - start Node server
-$ node server or dbl click server.bat
+- $ node server or dbl click server.bat
 
 ### Application
 - Open first Chrome browser http://localhost:3000/
-Login as John Doe (no password required)
+- Login as John Doe (no password required)
 
 - Open second Chrome browser http://localhost:3000/
-Login as Jane Doe (no password required)
+- Login as Jane Doe (no password required)
