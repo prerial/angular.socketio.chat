@@ -101,7 +101,6 @@ angular.module("toolbar.html", []).run(["$templateCache", function($templateCach
 angular.module("contact-list.html", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("contact-list.html",
         '<ul class="chatContacts">\n' +
-//        '<li class="contact-list" ng-repeat="contact in contacts" ng-click="setContact(contact, $event)">\n' +
         '<li contact-selected class="contact-list" ng-repeat="contact in contacts" >\n' +
         '    <div id="user_{{contact.chid}}" class="presence {{contact.presence}} gender_{{contact.profile.gender}}" style="float:left;background-image:url({{contact.avatar}});backgrounf-size:60px 60px;background-size: contain;"></div>\n' +
         '    <div class="contactTitle">{{contact.profile.firstname}} {{contact.profile.midname}} {{contact.profile.lastname}}<div class="contact-location">{{contact.profile.location}}</div></div>\n' +
@@ -127,8 +126,7 @@ angular.module("chat.html", []).run(["$templateCache", function($templateCache) 
     $templateCache.put("chat.html",
         '<div><div id="chat_display_holder" class="chat-display"><ul></ul></div></div>\n' +
         '<div ng-controller="chatController" class="sendMessageDiv">\n' +
-//        '    <div><input id="sendMessage" chat-send-message class="sendField" type="text" placeholder="Type your message here" /></div>\n' +
-        '    <div><input id="sendMessage" ng-keyup="onKeyUp($event)" class="sendField" type="text" placeholder="Type your message here" /></div>\n' +
+        '    <div><input id="sendMessage" ng-keyup="onKeyUp($event)" chat-send-message class="sendField" type="text" placeholder="Type your message here" /></div>\n' +
         '</div>\n' +
     "");
 }]);

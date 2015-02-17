@@ -7,8 +7,7 @@ angular.module('comcenterControllers', [])
         $(".alert-box-message").html(arguments[0].message)
         $(".alert-box-title").html(arguments[0].title)
         $scope.alertIsHidden = !$scope.alertIsHidden;
-        if(App.isiPad) $('#sendMessage').blur();
-    }
+    };
     var chatResponce = function(args){
         switch (args.event) {
             case 'chatMessage':
@@ -33,6 +32,7 @@ angular.module('comcenterControllers', [])
     messaging.subscribe('chatMessage', chatResponce);
     messaging.subscribe('setPresence', chatResponce);
     messaging.subscribe('updatePresence', chatResponce);
+    messaging.subscribe('showAlert', $scope.showAlert);
 
 }])
 
@@ -160,14 +160,6 @@ angular.module('comcenterControllers', [])
         });
         $scope.$apply();
     });
-/*
-    $scope.setContact = function(cont, event) {
-        $(".contact-list").removeClass('hilited');
-        $(event.target)[0].tagName === 'li'? $(event.target).addClass('hilited') : $(event.target).closest('li').addClass('hilited');
-        $scope.publish(events.message._SET_CONTACT_FROM_LIST_, [{data: cont}]);
-    };
-    $scope.$emit('handleEmit', {event: 'getLoginUser', data: ''});
-*/
     $scope.subscribe(events.message._GET_CONTACTS_COMPLETE_, setcontactslist);
 
 })

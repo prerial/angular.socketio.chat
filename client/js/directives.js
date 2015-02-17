@@ -28,32 +28,27 @@ angular.module('comcenterDirectives', ['ngAnimate'])
      };
 }])
 
-.directive('chatSendMessage', ['websocket', function (websocket) {
+.directive('chatSendMessage', ['websocket', 'messaging', function (websocket, messaging) {
     return {
-        scope : true,
-        link: function(scope, elem, attr, ctrl) {
-            elem.bind('keypress', function(event){
+        restrict : 'A',
+        controller : function ($scope, $element, $attrs) {
+            $scope.onKeyUp = function ($event) {
                 if(event.keyCode === 13){
-debugger
-            if(App.chat.conversations.active !== null){
-                var presence = angular.element('#chat_toolbar').scope().getPresence();
-                if(presence !== 'online'){
-                    angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
-                    return;
-                }
-            }else{
-                angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Please select Contact'});
-                //alert('Please select Contact');
-                return;
-            }
-debugger
-                    angular.element(document.body).scope().showAlert({'title':'Chat', 'message':'Selected Contact is not Online'});
-                    var liItem = $('<li style="display:block;" class="bubble"></li>').append('Me:&nbsp;' + elem.val());
+                    if(App.chat.conversations.active !== null){
+                        if(angular.element('#chat_toolbar').scope().getPresence() !== 'online'){
+                            messaging.publish('showAlert', [{'title':'Chat', 'message':'Selected Contact is not Online'}]);
+                            return;
+                        }
+                    }else{
+                        messaging.publish('showAlert', [{'title':'Chat', 'message':'Please select Contact'}]);
+                        return;
+                    }
+                    var liItem = $('<li style="display:block;" class="bubble"></li>').append('Me:&nbsp;' + $element.val());
                     $('#chat_display_holder ul').append(liItem);
-                    elem.val('').blur();
-                    websocket.send({'event': 'chatMessage', 'data':elem.val()});
+                    websocket.send({'event': 'chatMessage', 'data':$element.val()});
+                    $element.val('').blur();
                 }
-            });
+            };
         }
      };
 }])
@@ -71,13 +66,9 @@ debugger
 }])
 
 .directive("alertUtil", function($animate) {
-
     return  {
       templateUrl : 'alert.html',
       replace : true,
-      compile : function (element, attributes, transclude) {},
-      link : function ($scope, $element, $attrs) {},
-      scope : true,
       controller : function ($scope, $element, $attrs) {
         $scope.$watch($attrs.alertUtil, function(newVal) {
             if (newVal) {
