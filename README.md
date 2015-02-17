@@ -14,12 +14,12 @@
 - install packages
 $ npm install
 
-- start MongoDB
+- start Node server
+$ node server or dbl click server.bat
 
-- load data
-$ node load
+### Application
+- Open first Chrome browser http://localhost:3000/
+Login as John Doe (no password required)
 
-
-- start Node
-$ node server
-
+- Open second Chrome browser http://localhost:3000/
+Login as Jane Doe (no password required)
