@@ -6,7 +6,7 @@
   "license"       : "MIT",
   "author"       : "MG",
   "dependencies" : {
-    "ejs": "~2.0",
+    "ejs": "~2.5.5",
     "express": "~3.4.4",
     "socket.io": "~1.0"
     }
